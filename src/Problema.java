@@ -5,8 +5,18 @@ import java.util.Random;
 
 public class Problema {
     public static void main(String[] args) {
-        for(int i = 0; i < 50; i++)
-            System.out.println(generateRandomNumber1to7());
+        int numSamples = 1000;
+        int[] histogram = new int[7];
+
+        for (int i = 0; i < numSamples; i++) {
+            int randomNumber = generateRandomNumber1to7();
+            histogram[randomNumber - 1]++;
+        }
+
+        System.out.println("Histograma:");
+        for (int i = 0; i < histogram.length; i++) {
+            System.out.println((i + 1) + ": " + histogram[i]);
+        }
     }
 
     private static int generateRandomNumber1to5() {
@@ -15,6 +25,20 @@ public class Problema {
     }
 
     public static int generateRandomNumber1to7() {
-        return generateRandomNumber1to5() + (generateRandomNumber1to5() % 3);
+        int randomNumber1 = generateRandomNumber1to5();
+        int randomNumber2 = generateRandomNumber1to5();
+
+        int result = (randomNumber1 - 1) * 5 + randomNumber2;
+
+        if (result <= 21) {
+            return (result % 7) + 1;
+        } else {
+            return generateRandomNumber1to7();
+        }
     }
+    
 }
+
+
+
+
